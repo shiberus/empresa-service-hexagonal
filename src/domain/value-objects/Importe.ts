@@ -14,7 +14,7 @@ export class Importe {
     return this._centavos;
   }
 
-  get valor(): number {
+  get value(): number {
     return this._centavos / 100;
   }
 
@@ -23,6 +23,6 @@ export class Importe {
   }
 
   toString(): string {
-    return `$${this.valor.toFixed(2)}`;
+    return `$${this.value.toFixed(2)}`;
   }
 }

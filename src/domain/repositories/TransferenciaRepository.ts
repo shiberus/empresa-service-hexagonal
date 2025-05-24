@@ -1,3 +1,5 @@
+import { Transferencia } from "../entities/Transferencia";
+
 export interface TransferenciaRepository {
-  obtenerEmpresaIdsQueTransfirieronDesde(fecha: Date): Promise<string[]>;
+  getTransferenciasPorRango(desde: Date, hasta: Date): Promise<Transferencia[]>;
 }

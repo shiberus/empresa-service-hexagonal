@@ -22,7 +22,7 @@ export class Transferencia {
     this._fecha = fecha;
   }
 
-  static create(
+  static crear(
     empresaId: string,
     cuentaDebito: string,
     cuentaCredito: string,

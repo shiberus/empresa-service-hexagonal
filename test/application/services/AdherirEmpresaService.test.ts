@@ -1,7 +1,6 @@
 import { AdherirEmpresaService } from "../../../src/application/services/AdherirEmpresaService";
 import { EmpresaRepository } from "../../../src/domain/repositories/EmpresaRepository";
 import { Empresa } from "../../../src/domain/entities/Empresa";
-import { ValidationError } from "../../../src/domain/errors/ValidationError";
 
 jest.mock("uuid", () => ({
   v4: () => "mock-uuid",
@@ -31,7 +30,7 @@ describe("AdherirEmpresaService", () => {
     expect(id).toBe("mock-uuid");
     expect(mockEmpresaRepository.guardar).toHaveBeenCalledTimes(1);
 
-    const savedEmpresa = (mockEmpresaRepository.guardar as jest.Mock).mock
+    const savedEmpresa = mockEmpresaRepository.guardar.mock
       .calls[0][0];
     expect(savedEmpresa).toBeInstanceOf(Empresa);
     expect(savedEmpresa.id).toBe("mock-uuid");
@@ -67,7 +66,7 @@ describe("AdherirEmpresaService", () => {
 
     await expect(
       service.ejecutar("20304050607", "Empresa S.A.", new Date()),
-    ).rejects.toThrow(ValidationError);
+    ).rejects.toThrow("El CUIT ya existe en el sistema.");
 
     expect(mockEmpresaRepository.cuitEsUnico).toHaveBeenCalledWith(
       "20304050607",

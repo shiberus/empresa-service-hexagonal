@@ -1,0 +1,62 @@
+[
+  {
+    "_id": "5f6b7e0c-99cb-4a55-a36c-b587b109ec1b",
+    "cuit": 20123456789,
+    "razonSocial": "Tech Solutions SA",
+    "fechaAdhesion": "2024-04-12"
+  },
+  {
+    "_id": "b81c13c6-4605-43c4-bd46-4f20bb7b6e6b",
+    "cuit": 20234567890,
+    "razonSocial": "Innovar SRL",
+    "fechaAdhesion": "2025-05-03"
+  },
+  {
+    "_id": "fe4d2ed7-c72b-4f79-bc64-820e3c4f3944",
+    "cuit": 20345678901,
+    "razonSocial": "Sistemas Inteligentes SA",
+    "fechaAdhesion": "2025-05-15"
+  },
+  {
+    "_id": "db0e6a45-0e80-4a86-a6d1-df28e9a8479e",
+    "cuit": 20456789012,
+    "razonSocial": "RedCom SRL",
+    "fechaAdhesion": "2025-04-28"
+  },
+  {
+    "_id": "45cb2965-f9b9-4b71-b40a-27b490e5a646",
+    "cuit": 20567890123,
+    "razonSocial": "Desarrollos Web SA",
+    "fechaAdhesion": "2024-06-01"
+  },
+  {
+    "_id": "8c118cdc-f44b-4cb1-975a-61e9a1f29b7d",
+    "cuit": 20678901234,
+    "razonSocial": "Consultora IT SRL",
+    "fechaAdhesion": "2024-06-10"
+  },
+  {
+    "_id": "38c72ef7-3e33-4c76-a395-d59a94266d91",
+    "cuit": 20789012345,
+    "razonSocial": "CloudCorp SA",
+    "fechaAdhesion": "2025-05-20"
+  },
+  {
+    "_id": "79aa2051-0d91-4382-8cf6-7abdbeb71e0e",
+    "cuit": 20890123456,
+    "razonSocial": "AI Tech SRL",
+    "fechaAdhesion": "2025-05-22"
+  },
+  {
+    "_id": "fd8fc330-4a77-40d1-8b4f-b65b9f377ed9",
+    "cuit": 20901234567,
+    "razonSocial": "NextGen Devs SA",
+    "fechaAdhesion": "2025-04-29"
+  },
+  {
+    "_id": "2b0717cc-f7cb-4c83-90e0-ecb251f7a0f6",
+    "cuit": 20123456780,
+    "razonSocial": "FullStackers SRL",
+    "fechaAdhesion": "2024-04-30"
+  }
+]

@@ -1,19 +1,19 @@
-import { Transferencia } from '../../../src/domain/entities/Transferencia';
-import { Cuenta } from '../../../src/domain/value-objects/Cuenta';
-import { Importe } from '../../../src/domain/value-objects/Importe';
+import { Transferencia } from "../../../src/domain/entities/Transferencia";
 
-describe('Transferencia', () => {
-  const validEmpresaId = 'abc-123';
-  const validCuentaDebito = '0123456789';
-  const validCuentaCredito = '9876543210';
+describe("Transferencia", () => {
+  const validEmpresaId = "abc-123";
+  const validCuentaDebito = "0123456789";
+  const validCuentaCredito = "9876543210";
   const validImporte = 1000;
+  const validFecha = new Date();
 
-  it('should create a Transferencia with valid data', () => {
+  it("should create a Transferencia with valid data", () => {
     const transferencia = Transferencia.crear(
       validEmpresaId,
       validCuentaDebito,
       validCuentaCredito,
-      validImporte
+      validImporte,
+      validFecha,
     );
 
     expect(transferencia.empresaId).toBe(validEmpresaId);
@@ -23,61 +23,78 @@ describe('Transferencia', () => {
     expect(transferencia.fecha).toBeInstanceOf(Date);
   });
 
-  it('should throw if empresaId is empty', () => {
+  it("should throw if empresaId is empty", () => {
     expect(() => {
       Transferencia.crear(
-        '',
+        "",
         validCuentaDebito,
         validCuentaCredito,
-        validImporte
+        validImporte,
+        validFecha,
       );
-    }).toThrow('El ID de la empresa es requerido.');
+    }).toThrow("El ID de la empresa es requerido.");
   });
 
-  it('should throw if cuentaDebito is invalid', () => {
+  it("should throw if cuentaDebito is invalid", () => {
     expect(() => {
       Transferencia.crear(
         validEmpresaId,
-        '',
+        "",
         validCuentaCredito,
-        validImporte
+        validImporte,
+        validFecha,
       );
     }).toThrow();
   });
 
-  it('should throw if cuentaCredito is invalid', () => {
+  it("should throw if cuentaCredito is invalid", () => {
     expect(() => {
       Transferencia.crear(
         validEmpresaId,
         validCuentaDebito,
-        '',
-        validImporte
+        "",
+        validImporte,
+        validFecha,
       );
     }).toThrow();
   });
 
-  it('should throw if importe is negative', () => {
+  it("should throw if importe is negative", () => {
     expect(() => {
       Transferencia.crear(
         validEmpresaId,
         validCuentaDebito,
         validCuentaCredito,
-        -100
+        -100,
+        validFecha,
       );
     }).toThrow();
   });
 
-  it('should use current date if no fecha is provided', () => {
-    const before = new Date();
-    const transferencia = Transferencia.crear(
-      validEmpresaId,
-      validCuentaDebito,
-      validCuentaCredito,
-      validImporte
-    );
-    const after = new Date();
+  it("should throw if fecha is undefined", () => {
+    expect(() =>
+      Transferencia.crear(
+        validEmpresaId,
+        validCuentaDebito,
+        validCuentaCredito,
+        validImporte,
+        undefined as any,
+      ),
+    ).toThrow("La fecha de la transferencia es requerida");
+  });
 
-    expect(transferencia.fecha.getTime()).toBeGreaterThanOrEqual(before.getTime());
-    expect(transferencia.fecha.getTime()).toBeLessThanOrEqual(after.getTime());
+  it("should throw if fecha is in the future", () => {
+    const futureDate = new Date();
+    futureDate.setDate(futureDate.getDate() + 1);
+
+    expect(() =>
+      Transferencia.crear(
+        validEmpresaId,
+        validCuentaDebito,
+        validCuentaCredito,
+        validImporte,
+        futureDate,
+      ),
+    ).toThrow("La fecha de la transferencia no puede ser futura");
   });
 });

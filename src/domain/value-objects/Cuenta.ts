@@ -1,10 +1,12 @@
+import { ValidationError } from "../errors/ValidationError";
+
 export class Cuenta {
   private readonly _numero: string;
 
   constructor(numero: string) {
     if (!numero || !/^\d{10,20}$/.test(numero)) {
       // Solo digitos, longitud entre 10 y 20 caracteres
-      throw new Error('Número de cuenta inválido.');
+      throw new ValidationError("Número de cuenta inválido.");
     }
     this._numero = numero;
   }

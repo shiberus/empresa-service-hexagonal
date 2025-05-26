@@ -5,6 +5,9 @@ export class GetEmpresasPorFechaAdhesionService {
   constructor(private readonly empresaRepository: EmpresaRepository) {}
 
   async ejecutar(desde: Date, hasta: Date): Promise<Empresa[]> {
-    return await this.empresaRepository.getEmpresasPorFechaAdhesion(desde, hasta);
+    return await this.empresaRepository.getEmpresasPorFechaAdhesion(
+      desde,
+      hasta,
+    );
   }
 }

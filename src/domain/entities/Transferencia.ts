@@ -1,5 +1,6 @@
-import { Importe } from '../value-objects/Importe';
-import { Cuenta } from '../value-objects/Cuenta';
+import { Importe } from "../value-objects/Importe";
+import { Cuenta } from "../value-objects/Cuenta";
+import { ValidationError } from "../errors/ValidationError";
 
 export class Transferencia {
   private readonly _empresaId: string;
@@ -13,7 +14,7 @@ export class Transferencia {
     cuentaDebito: Cuenta,
     cuentaCredito: Cuenta,
     importe: Importe,
-    fecha: Date
+    fecha: Date,
   ) {
     this._empresaId = empresaId;
     this._cuentaDebito = cuentaDebito;
@@ -27,9 +28,20 @@ export class Transferencia {
     cuentaDebito: string,
     cuentaCredito: string,
     importe: number,
-    fecha?: Date
+    fecha: Date,
   ): Transferencia {
-    if (!empresaId) throw new Error('El ID de la empresa es requerido.');
+    if (!empresaId)
+      throw new ValidationError("El ID de la empresa es requerido.");
+
+    if (!fecha) {
+      throw new ValidationError("La fecha de la transferencia es requerida");
+    }
+    const now = new Date();
+    if (fecha.getTime() > now.getTime()) {
+      throw new ValidationError(
+        "La fecha de la transferencia no puede ser futura",
+      );
+    }
 
     const cuentaDebitoVO = new Cuenta(cuentaDebito);
     const cuentaCreditoVO = new Cuenta(cuentaCredito);
@@ -41,7 +53,7 @@ export class Transferencia {
       cuentaDebitoVO,
       cuentaCreditoVO,
       importeVO,
-      fechaFinal
+      fechaFinal,
     );
   }
 

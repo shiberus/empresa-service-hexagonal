@@ -16,7 +16,7 @@ Este proyecto implementa una aplicación de backend utilizando **Node.js**, **Ty
 
 ```bash
 git clone https://github.com/shiberus/empresa-service-hexagonal.git
-cd tu-repo
+cd empresa-service-hexagonal
 npm install
 ```
 

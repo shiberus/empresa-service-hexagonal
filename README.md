@@ -8,8 +8,7 @@ Este proyecto implementa una aplicación de backend utilizando **Node.js**, **Ty
 
 - **Domain Layer**: Entidades, Value Objects y reglas de negocio.
 - **Application Layer**: Casos de uso como `AdherirEmpresaService`.
-- **Infrastructure Layer**: Conexión con MongoDB usando Mongoose.
-- **Interface Layer**: Controladores y rutas Express.
+- **Infrastructure Layer**: Conexión con MongoDB usando Mongoose. Controladores y rutas Express.
 
 ---
 

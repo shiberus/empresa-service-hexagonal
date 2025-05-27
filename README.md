@@ -27,6 +27,27 @@ npm run build
 npm start
 ```
 ---
+
+### 📡 Endpoints disponibles
+
+#### `GET /empresas/adheridas`
+Devuelve las empresas que se adhirieron en el último mes.
+
+#### `GET /empresas/con-transferencias`
+Devuelve las empresas que tienen al menos una transferencia en el último mes.
+
+#### `POST /empresas`
+Adhiere una nueva empresa al sistema.
+
+**Cuerpo esperado (JSON):**
+```json
+{
+  "cuit": "20304050607",
+  "razonSocial": "Empresa S.A.",
+  "fechaAdhesion": "2025-04-29" // Opcional, por defecto se utiliza la fecha actual
+}
+```
+
 ## 🎭 mocks
 
 En la carpeta /test/fixtures se incluye un archivo JSON con los mismos datos utilizados para poblar la base de datos. Esto permite ejecutar pruebas o revisar el formato esperado sin necesidad de acceder directamente a la base.

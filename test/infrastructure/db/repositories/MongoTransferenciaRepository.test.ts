@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { TransferenciaModel } from "../../../../src/infrastructure/db/schemas/TransferenciaSchema";
 import { MongoTransferenciaRepository } from "../../../../src/infrastructure/db/repositories/MongoTransferenciaRepository";
 import { Transferencia } from "../../../../src/domain/entities/Transferencia";
+import { DatabaseError } from "../../../../src/infrastructure/db/errors/DatabaseError";
 
 describe("MongoTransferenciaRepository", () => {
   let mongoServer: MongoMemoryServer;
@@ -44,10 +45,21 @@ describe("MongoTransferenciaRepository", () => {
 
     const result: Transferencia[] = await repository.getTransferenciasPorRango(
       new Date("2024-04-01"),
-      new Date("2024-04-30"),
+      new Date("2024-04-30")
     );
 
     expect(result).toHaveLength(1);
     expect(result[0].empresaId).toBe("empresa-1");
+  });
+  it("throws DatabaseError when Mongoose throws", async () => {
+    jest.spyOn(TransferenciaModel, "find").mockReturnValueOnce({
+      lean: () => Promise.reject(new DatabaseError("Mongo Error")),
+    } as any);
+
+    const desde = new Date("2023-04-01");
+    const hasta = new Date("2023-04-30");
+    await expect(
+      repository.getTransferenciasPorRango(desde, hasta)
+    ).rejects.toThrow(DatabaseError);
   });
 });

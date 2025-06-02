@@ -46,14 +46,13 @@ export class Transferencia {
     const cuentaDebitoVO = new Cuenta(cuentaDebito);
     const cuentaCreditoVO = new Cuenta(cuentaCredito);
     const importeVO = new Importe(importe);
-    const fechaFinal = fecha ?? new Date();
 
     return new Transferencia(
       empresaId,
       cuentaDebitoVO,
       cuentaCreditoVO,
       importeVO,
-      fechaFinal,
+      fecha,
     );
   }
 

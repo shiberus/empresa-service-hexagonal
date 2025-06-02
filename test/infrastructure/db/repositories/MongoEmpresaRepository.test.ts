@@ -1,6 +1,7 @@
 import { MongoEmpresaRepository } from "../../../../src/infrastructure/db/repositories/MongoEmpresaRepository";
 import { EmpresaModel } from "../../../../src/infrastructure/db/schemas/EmpresaSchema";
 import { Empresa } from "../../../../src/domain/entities/Empresa";
+import { DatabaseError } from "../../../../src/infrastructure/db/errors/DatabaseError";
 
 jest.mock("../../../../src/infrastructure/db/schemas/EmpresaSchema");
 
@@ -32,6 +33,19 @@ describe("MongoEmpresaRepository", () => {
         fechaAdhesion: empresa.fechaAdhesion,
       });
     });
+
+    it('should throw DatabaseError when create fails', async () => {
+      jest.spyOn(EmpresaModel, 'create').mockRejectedValueOnce(new Error('Mongo error'));
+
+      const empresa = Empresa.crear(
+        'uuid-123',
+        '20304050607',
+        'Empresa S.A.',
+        new Date('2023-05-01')
+      );
+
+      await expect(repo.guardar(empresa)).rejects.toThrow(DatabaseError);
+    });
   });
 
   describe("getEmpresasPorFechaAdhesion", () => {
@@ -51,7 +65,7 @@ describe("MongoEmpresaRepository", () => {
         },
       ];
 
-      jest.spyOn(EmpresaModel, "find").mockReturnValue({
+      jest.spyOn(EmpresaModel, "find").mockReturnValueOnce({
         lean: () => Promise.resolve(fakeDocs),
       } as any);
 
@@ -65,6 +79,15 @@ describe("MongoEmpresaRepository", () => {
       expect(empresas[0].id).toBe("uuid-1");
       expect(empresas[0].cuit.value).toBe("20304050607");
       expect(empresas[1].razonSocial.value).toBe("Empresa Dos");
+    });
+    it('throws DatabaseError when Mongoose throws', async () => {
+      jest.spyOn(EmpresaModel, 'find').mockReturnValueOnce({
+        lean: () => Promise.reject(new DatabaseError("Mongo Error")),
+      } as any);
+
+      const desde = new Date("2023-04-01");
+      const hasta = new Date("2023-04-30");
+      await expect(repo.getEmpresasPorFechaAdhesion(desde, hasta)).rejects.toThrow(DatabaseError);
     });
   });
 
@@ -90,6 +113,13 @@ describe("MongoEmpresaRepository", () => {
       expect(empresas.length).toBe(1);
       expect(empresas[0].id).toBe("uuid-3");
       expect(empresas[0]).toBeInstanceOf(Empresa);
+    });
+     it('throws DatabaseError when Mongoose throws', async () => {
+      jest.spyOn(EmpresaModel, 'find').mockReturnValueOnce({
+        lean: () => Promise.reject(new DatabaseError("Mongo Error")),
+      } as any);
+
+      await expect(repo.getEmpresasPorIds(['some-id'])).rejects.toThrow(DatabaseError);
     });
   });
 

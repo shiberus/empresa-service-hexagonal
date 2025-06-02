@@ -8,6 +8,7 @@ module.exports = {
   testMatch: ['**/test/**/*.test.ts'],
   collectCoverage: true,
   coverageReporters: ['text'],
+  verbose: true,
   transform: {
     ...tsJestTransformCfg,
   },

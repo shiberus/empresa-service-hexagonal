@@ -6,7 +6,7 @@ export const components = {
       properties: {
         cuit: {
           type: "string",
-          example: "20304050607",
+          example: "20304050603",
         },
         razonSocial: {
           type: "string",
@@ -15,7 +15,7 @@ export const components = {
         fechaAdhesion: {
           type: "string",
           format: "date",
-          example: "2022-12-18",
+          example: "2025-06-01",
           description: "Opcional. Si no se envía, se usa la fecha actual.",
         },
       },
@@ -33,12 +33,12 @@ export const components = {
         },
         razonSocial: {
           type: "string",
-          example: "Innovar SRL",
+          example: "Tres Estrellas SRL",
         },
         fechaAdhesion: {
           type: "string",
           format: "date-time",
-          example: "2025-05-03T00:00:00.000Z",
+          example: "2022-12-18T14:55:00.000Z",
         },
       },
     },
